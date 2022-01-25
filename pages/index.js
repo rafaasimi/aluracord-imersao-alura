@@ -58,8 +58,8 @@ export default function PaginaInicial() {
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    backgroundColor: appConfig.theme.colors.primary[500],
-                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    backgroundImage: 'url(https://wallpaperaccess.com/full/4858991.jpg)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
@@ -73,9 +73,11 @@ export default function PaginaInicial() {
                             sm: 'row',
                         },
                         width: '100%', maxWidth: '700px',
+                        border: '1px solid rgba( 255, 255, 255, 0.10 )',
                         borderRadius: '5px', padding: '32px', margin: '16px',
-                        boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        boxShadow: '0 8px 32px 0 rgba( 0, 0, 0, 0.37 )',
+                        backgroundColor: 'rgba( 255, 255, 255, 0.21 )',
+                        backdropFilter: 'blur( 1px )'
                     }}
                 >
                     {/* Formulário */}
