@@ -92,7 +92,7 @@ export default function PaginaInicial() {
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-                        <Title tag="h2">Boas vindas de volta!</Title>
+                        <Title tag="h2">Como sei que posso confiar em você?</Title>
                         <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
                             {appConfig.name}
                         </Text>
@@ -149,9 +149,10 @@ export default function PaginaInicial() {
                                 borderRadius: '50%',
                                 marginBottom: '16px',
                             }}
-                            src={`https://github.com/${username}.png`}
+                            src={username ? `https://github.com/${username}.png` : `https://avatars.githubusercontent.com/u/9919?s=280&v=4`}
                         />
-                        <Text
+                        {!username ? "" : (
+                            <Text
                             variant="body4"
                             styleSheet={{
                                 color: appConfig.theme.colors.neutrals[200],
@@ -162,6 +163,7 @@ export default function PaginaInicial() {
                         >
                             {username}
                         </Text>
+                        )}
                     </Box>
                     {/* Photo Area */}
                 </Box>

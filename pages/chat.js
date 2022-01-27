@@ -1,32 +1,78 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js'
 
 export default function ChatPage() {
     const [message, setMessage] = useState('')
     const [messageList, setMessageList] = useState([])
 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI4NTkwNiwiZXhwIjoxOTU4ODYxOTA2fQ.ytgMF_N89xVP5rgPtv2eHlDmZG-tLcyqc3szrSYeb9c'
+    const SUPABASE_URL = 'https://wnqdcabnlddyntengxyu.supabase.co'
+
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    useEffect(() => {
+        supabaseClient
+            .from('messages')
+            .select('*')
+            .order('id', { ascending: false })
+            .then(({ data }) => {
+                setMessageList(data)
+            })
+    }, [])
+
+
     function handleNewMessage(newMessage) {
+
+        if (!newMessage) {
+            return
+        }
+
+        if (newMessage.trim() === '') {
+            return
+        }
+
         const message = {
-            id: messageList.length + (Math.random() * 100),
-            text: newMessage,
+            // id: messageList.length + Math.floor((Math.random() * 1000)),
+            text: newMessage.trim(),
             user: 'rafaasimi',
         }
 
-        setMessageList([
-            message,
-            ...messageList,
-        ])
+        supabaseClient
+            .from('messages')
+            .insert([message])
+            .then(({ data }) => {
+                setMessageList([
+                    data[0],
+                    ...messageList,
+                ])
+            })
+
+
+
         setMessage('')
+
     }
 
     function handleDeleteMessage(event) {
         const messageId = Number(event.target.dataset.id)
-        const messageListFiltered = messageList.filter((messageFiltered) => {
-            return messageFiltered.id != messageId
-        })
+        console.log(messageId);
+        
+        supabaseClient
+            .from('messages')
+            .delete()
+            .match({ id: messageId })
+            .then(({ data }) => {
+                const messageListFiltered = messageList.filter((messageFiltered) => {
+                    return messageFiltered.id != data[0].id
+                })
 
-        setMessageList(messageListFiltered)
+                setMessageList(messageListFiltered)
+            })
+
+
+
     }
 
     return (
