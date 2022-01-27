@@ -9,10 +9,7 @@ export default function ChatPage() {
     const [messageList, setMessageList] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI4NTkwNiwiZXhwIjoxOTU4ODYxOTA2fQ.ytgMF_N89xVP5rgPtv2eHlDmZG-tLcyqc3szrSYeb9c'
-    const SUPABASE_URL = 'https://wnqdcabnlddyntengxyu.supabase.co'
-
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    const supabaseClient = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY)
 
     useEffect(() => {
         supabaseClient
