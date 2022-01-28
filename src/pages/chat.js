@@ -1,15 +1,45 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
 import appConfig from '../../config.json';
+import { ButtonSendSticker } from '../components/ButtonSendSticker'
+
 import { createClient } from '@supabase/supabase-js'
+
+const supabaseClient = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY)
+
+function listenMessagesRealTime(newMessage) {
+    return supabaseClient
+        .from('messages')
+        .on('INSERT', (responseRealTime) => {
+            newMessage(responseRealTime.new);
+        })
+        .subscribe()
+}
+
+function deleteListenMessagesRealTime(deleteMessage) {
+    return supabaseClient
+        .from('messages')
+        .on('DELETE', (responseRealTime) => {
+            deleteMessage(responseRealTime.old);
+        })
+        .subscribe()
+}
 
 
 export default function ChatPage() {
     const [message, setMessage] = useState('')
-    const [messageList, setMessageList] = useState([])
+    const [messageList, setMessageList] = useState([
+        // {
+        //     id: 1,
+        //     text: ':sticker: https://i.ibb.co/JH17y5W/baby-yoda.png',
+        //     user: 'rafaasimi'
+        // }
+    ])
     const [isLoaded, setIsLoaded] = useState(false)
+    const roteamento = useRouter()
+    const loggedUser = roteamento.query.username
 
-    const supabaseClient = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY)
 
     useEffect(() => {
         supabaseClient
@@ -20,6 +50,19 @@ export default function ChatPage() {
                 setMessageList(data)
                 setIsLoaded(true)
             })
+
+        listenMessagesRealTime((newMessage) => {
+            setMessageList((valorAtualdaLista) => {
+                return [
+                    newMessage,
+                    ...valorAtualdaLista,
+                ]
+            })
+        })
+
+       
+
+
     }, [])
 
 
@@ -36,20 +79,18 @@ export default function ChatPage() {
         const message = {
             // id: messageList.length + Math.floor((Math.random() * 1000)),
             text: newMessage.trim(),
-            user: 'rafaasimi',
+            user: loggedUser,
         }
 
         supabaseClient
             .from('messages')
             .insert([message])
             .then(({ data }) => {
-                setMessageList([
-                    data[0],
-                    ...messageList,
-                ])
+                // setMessageList([
+                //     data[0],
+                //     ...messageList,
+                // ])
             })
-
-
 
         setMessage('')
 
@@ -57,7 +98,6 @@ export default function ChatPage() {
 
     function handleDeleteMessage(event) {
         const messageId = Number(event.target.dataset.id)
-        console.log(messageId);
 
         supabaseClient
             .from('messages')
@@ -164,6 +204,8 @@ export default function ChatPage() {
                             styleSheet={{
                                 display: 'flex',
                                 alignItems: 'center',
+                                gap: '16px',
+                                height: '60px',
                             }}
                         >
                             <TextField
@@ -181,18 +223,24 @@ export default function ChatPage() {
                                 type="textarea"
                                 styleSheet={{
                                     width: '100%',
+                                    height: '100%',
                                     border: '0',
                                     resize: 'none',
                                     borderRadius: '5px',
                                     padding: '6px 8px',
                                     backgroundColor: appConfig.theme.colors.neutrals[800],
-                                    marginRight: '12px',
                                     color: appConfig.theme.colors.neutrals[200],
                                 }}
                             />
+                            <ButtonSendSticker
+                                onStickerClick={(sticker) => {
+                                    handleNewMessage(`:sticker: ${sticker}`)
+                                }}
+                            />
+
                             <Button
                                 onClick={() => handleNewMessage(message)}
-                                label='Entrar'
+                                label='Enviar'
                                 fullWidth
                                 styleSheet={{
                                     maxWidth: '100px',
@@ -316,7 +364,21 @@ function MessageList(props) {
                                 X
                             </Text>
                         </Box>
-                        {messageItem.text}
+                        {messageItem.text?.startsWith(':sticker:')
+                            ? (
+                                <Image
+                                    src={messageItem.text.replace(':sticker:', '')}
+                                    styleSheet={
+                                        {
+                                            maxWidth: '150px',
+                                        }
+                                    }
+                                />
+                            )
+                            : (
+                                messageItem.text
+                            )
+                        }
                     </Text>
 
                 )

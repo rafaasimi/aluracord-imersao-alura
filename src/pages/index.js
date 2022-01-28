@@ -50,8 +50,6 @@ export default function PaginaInicial() {
     const [username, setUsername] = useState('');
     const roteamento = useRouter();
 
-    console.log();
-
 
     return (
         <>
@@ -85,7 +83,7 @@ export default function PaginaInicial() {
                         as="form"
                         onSubmit={function (event) {
                             event.preventDefault()
-                            roteamento.push('/chat')
+                            roteamento.push(`/chat?username=${username}`)
                         }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -153,16 +151,16 @@ export default function PaginaInicial() {
                         />
                         {!username ? "" : (
                             <Text
-                            variant="body4"
-                            styleSheet={{
-                                color: appConfig.theme.colors.neutrals[200],
-                                backgroundColor: appConfig.theme.colors.neutrals[900],
-                                padding: '3px 10px',
-                                borderRadius: '1000px'
-                            }}
-                        >
-                            {username}
-                        </Text>
+                                variant="body4"
+                                styleSheet={{
+                                    color: appConfig.theme.colors.neutrals[200],
+                                    backgroundColor: appConfig.theme.colors.neutrals[900],
+                                    padding: '3px 10px',
+                                    borderRadius: '1000px'
+                                }}
+                            >
+                                {username}
+                            </Text>
                         )}
                     </Box>
                     {/* Photo Area */}
