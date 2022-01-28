@@ -1,16 +1,16 @@
 <p align='center'><img width='300' src="./.github/aluracord-logo.png"/></p>
 <h1 align='center'>Aluracord</h1>
 <p align='center'>
-<img src="https://img.shields.io/github/repo-size/rafaasimi/aluracord-imersao-alura?color=04D361">
-<img src="https://img.shields.io/github/languages/count/rafaasimi/aluracord-imersao-alura?color=04D361">
-<img src="https://img.shields.io/github/last-commit/rafaasimi/aluracord-imersao-alura?color=04D361">
-<img src="https://img.shields.io/github/license/rafaasimi/aluracord-imersao-alura?color=04D361">
+<img src="https://img.shields.io/github/repo-size/rafaasimi/aluracord-imersao-alura?color=98621f">
+<img src="https://img.shields.io/github/languages/count/rafaasimi/aluracord-imersao-alura?color=98621f">
+<img src="https://img.shields.io/github/last-commit/rafaasimi/aluracord-imersao-alura?color=98621f">
+<img src="https://img.shields.io/github/license/rafaasimi/aluracord-imersao-alura?color=98621f">
 </p>
 
-## 🔖 Descrição
+# 🔖 Descrição
 <p> 💬 Criação de um chat realtime na #ImersaoReact da Alura<p>
 
-## 🚀 Tecnologias
+# 🚀 Tecnologias
 Esse projeto está utilizando as seguintes tecnologias:
 - HTML
 - CSS
@@ -19,26 +19,26 @@ Esse projeto está utilizando as seguintes tecnologias:
 - [Supabase](https://supabase.com/)
 
 
-## 🎲 Como utilizar
+# 🎲 Como utilizar
 
-# Clone esse repositório
+## Clone esse repositório
 ```sh
 git clone https://github.com/rafaasimi/aluracord-imersao-alura.git
 ```
 
 
-# Navegue até o repositório do projeto
+## Navegue até o repositório do projeto
 ```sh
 cd aluracord-imersao-alura
 ```
 
 
-# Instale as dependências
+## Instale as dependências
 ```sh
 yarn install
 ```
 
-# Inicie o projeto
+## Inicie o projeto
 ```sh
 yarn dev
 ```
