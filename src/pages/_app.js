@@ -25,6 +25,24 @@ function GlobalStyle() {
             #__next > * {
                 flex: 1;
             }
+
+            ::-webkit-scrollbar {
+            width: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+
+            }
+
+            ::-webkit-scrollbar-thumb {
+            background: #A96D23;
+            border-radius: 10px;
+            }
+
+
+            
         `}</style>
     )
 }
