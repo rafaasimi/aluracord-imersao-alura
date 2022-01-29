@@ -1,4 +1,4 @@
-<p align='center'><img width='300' src="./.github/aluracord-logo.png"/></p>
+<p align='center'><img width='500' src="./.github/aluracord-logo.png"/></p>
 <h1 align='center'>Aluracord</h1>
 <p align='center'>
 <img src="https://img.shields.io/github/repo-size/rafaasimi/aluracord-imersao-alura?color=98621f">
